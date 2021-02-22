@@ -12,17 +12,24 @@ function App() {
 
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState('');
+  const [error, setError] = useState('');
 
   const search = e => {
     if (e.key === 'Enter') {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
         .then(result => {
+          setError('')
+          if(result.cod == 404) {
+            setError(result.message)
+          }
           setWeather(result);
           setQuery('');
+          
         });
     }
   }
+
 
   const dateBuilder = (d) => {
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -38,7 +45,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className={(typeof weather.main != "undefined") ?  ((weather.main.temp > 16) ? 'app warm' : 'app' ) : 'app' }>
       <main>
         <div className='search-box'>
           <input
@@ -50,6 +57,7 @@ function App() {
             onKeyDown={search}
           />
         </div>
+       {error ? <div className='error'>{error}</div> : ''}
         {(typeof weather.main != "undefined") ? (
           <div>
             <div className='location-box'>

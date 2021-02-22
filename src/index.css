@@ -13,6 +13,8 @@ body {
   background-size: cover;
   background-position: bottom;
   transition: 0.4 ease-out;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .app.warm {
@@ -100,4 +102,12 @@ main {
   font-weight: 700;
   color: #FFF;
   text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+
+.error {
+  font-size: 50px;
+  text-align: center;
+  color: rgb(133, 0, 0);
+  font-weight: 900;
+  text-transform: uppercase;
 }
